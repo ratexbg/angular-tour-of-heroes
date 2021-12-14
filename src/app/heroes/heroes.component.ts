@@ -44,4 +44,21 @@ export class HeroesComponent implements OnInit {
     // izchakva se otgovora basically. Subscribe metoda vrushta emitnatiq masiv obratno kum callback-a , koeto setva heroes propertito (trqbva da vidq za arrow function)
   }
 
+
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.addHero({ name } as Hero)
+      .subscribe(hero => {
+        this.heroes.push(hero);
+      });
+  }
+
+
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.deleteHero(hero.id).subscribe();
+  }
+  
+
 }

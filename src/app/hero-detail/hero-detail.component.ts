@@ -14,7 +14,7 @@ import { HeroService } from '../hero.service';
 
 export class HeroDetailComponent implements OnInit {
 
-  @Input() hero?: Hero;               // imput hero? ot tip Hero ; ? ne e zaduljitelen (v nachaloto i guess)
+  @Input() hero?: Hero;               // imput hero? ot tip Hero ; ? ne e zaduljitelen (v nachaloto i guess); at imput v sluchaq se polzva za vkarvane na data ot drug komponent., same za output, otiva v drug komponent.
 
   constructor(
     private route: ActivatedRoute,
@@ -34,5 +34,12 @@ export class HeroDetailComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  save(): void {
+    if (this.hero) {
+      this.heroService.updateHero(this.hero)
+        .subscribe(() => this.goBack());
+    }
   }
 }
